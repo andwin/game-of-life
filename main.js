@@ -8,8 +8,6 @@ const boardData = new Array(boardWidht * boardHeight).fill(false)
 
 window.setup = () => {
   createCanvas(boardWidht * cellSize, boardHeight * cellSize)
-
-  console.log(boardData)
 }
 
 window.draw = () => {
