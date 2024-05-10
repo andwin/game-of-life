@@ -1,8 +1,8 @@
 import p5 from 'p5'
 
-const boardWidht = 200
-const boardHeight = 100
-const cellSize = 8
+const boardWidht = 120
+const boardHeight = 70
+const cellSize = 9
 
 const boardData = new Array(boardWidht * boardHeight).fill(false)
 
