@@ -13,15 +13,27 @@ window.setup = () => {
 }
 
 window.draw = () => {
+  background(255)
+
+  drawGrid()
+
+  fill(0)
   for (let y = 0; y < boardHeight; y++) {
     for (let x = 0; x < boardWidht; x++) {
       if (boardData[y * boardWidht + x]) {
-        fill(0)
-      } else {
-        fill(255)
+        rect(x * cellSize, y * cellSize, cellSize, cellSize)
       }
-      rect(x * cellSize, y * cellSize, cellSize, cellSize)
     }
+  }
+}
+
+const drawGrid = () => {
+  stroke(150)
+  for (let x = 0; x <= boardWidht; x++) {
+    line(x * cellSize, 0, x * cellSize, boardHeight * cellSize)
+  }
+  for (let y = 0; y <= boardHeight; y++) {
+    line(0, y * cellSize, boardWidht * cellSize, y * cellSize)
   }
 }
 
