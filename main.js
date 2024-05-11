@@ -35,6 +35,54 @@ const drawGrid = () => {
   }
 }
 
+/**
+ * Rules (from Wikipedia):
+ * 1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
+ * 2. Any live cell with two or three live neighbors lives on to the next generation.
+ * 3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+ * 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+ */
+const step = () => {
+  const newBoardData = new Array(boardWidht * boardHeight).fill(false)
+
+  for (let y = 0; y < boardHeight; y++) {
+    for (let x = 0; x < boardWidht; x++) {
+      const index = y * boardWidht + x
+      const count = countNeighbors(x, y)
+
+      if (boardData[index]) {
+        newBoardData[index] = count === 2 || count === 3
+      } else {
+        newBoardData[index] = count === 3
+      }
+    }
+  }
+
+  for (let i = 0; i < boardData.length; i++) {
+    boardData[i] = newBoardData[i]
+  }
+}
+
+
+
+const countNeighbors = (x, y) => {
+  let count = 0
+
+  for (let dx = x - 1; dx <= x + 1; dx++) {
+    for (let dy = y - 1; dy <= y + 1; dy++) {
+      if (dx < 0 || dx >= boardWidht || dy < 0 || dy >= boardHeight) {
+        continue
+      }
+
+      if (boardData[dy * boardWidht + dx]) {
+        count++
+      }
+    }
+  }
+
+  return count
+}
+
 window.mouseClicked = () => {
   const x = Math.floor(mouseX / cellSize)
   const y = Math.floor(mouseY / cellSize)
@@ -45,3 +93,5 @@ window.mouseClicked = () => {
   const index = y * boardWidht + x
   boardData[index] = !boardData[index]
 }
+
+document.getElementById('step').onclick = step
