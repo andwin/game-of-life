@@ -27,9 +27,11 @@ window.draw = () => {
 
 const drawGrid = () => {
   stroke(150)
+
   for (let x = 0; x <= boardWidht; x++) {
     line(x * cellSize, 0, x * cellSize, boardHeight * cellSize)
   }
+
   for (let y = 0; y <= boardHeight; y++) {
     line(0, y * cellSize, boardWidht * cellSize, y * cellSize)
   }
@@ -62,8 +64,6 @@ const step = () => {
     boardData[i] = newBoardData[i]
   }
 }
-
-
 
 const countNeighbors = (x, y) => {
   let count = 0
