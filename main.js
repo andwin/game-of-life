@@ -74,6 +74,9 @@ const countNeighbors = (x, y) => {
         continue
       }
 
+      // exclude itself
+      if (dx === x && dy === y) continue
+
       if (boardData[dy * boardWidht + dx]) {
         count++
       }
