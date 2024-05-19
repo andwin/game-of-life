@@ -1,4 +1,5 @@
 import p5 from 'p5'
+import presets from './presets'
 
 const boardWidht = 120
 const boardHeight = 70
@@ -100,6 +101,16 @@ const startstop = () => {
   document.getElementById('startstop').innerText = 'Stop'
 }
 
+const setPreset = (preset) => {
+  boardData.fill(false)
+
+  const presetData = presets[preset]
+  for (const [x, y] of presetData) {
+    const index = y * boardWidht + x
+    boardData[index] = true
+  }
+}
+
 window.mouseClicked = () => {
   const x = Math.floor(mouseX / cellSize)
   const y = Math.floor(mouseY / cellSize)
@@ -113,3 +124,9 @@ window.mouseClicked = () => {
 
 document.getElementById('step').onclick = step
 document.getElementById('startstop').onclick = startstop
+document.getElementById('presets').onchange = (e) => setPreset(e.target.value)
+setPreset(document.getElementById('presets').value)
+
+document.getElementById('clear').onclick = () => {
+  boardData.fill(false)
+}
