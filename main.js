@@ -127,7 +127,3 @@ document.getElementById('startstop').onclick = startstop
 document.getElementById('presets').onchange = (e) => setPreset(e.target.value)
 setPreset(document.getElementById('presets').value)
 document.getElementById('reset').onclick = () => setPreset(document.getElementById('presets').value)
-
-document.getElementById('clear').onclick = () => {
-  boardData.fill(false)
-}
