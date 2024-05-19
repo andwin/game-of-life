@@ -4,6 +4,8 @@ const boardWidht = 120
 const boardHeight = 70
 const cellSize = 9
 
+let intervalId = null
+
 const boardData = new Array(boardWidht * boardHeight).fill(false)
 
 window.setup = () => {
@@ -86,6 +88,18 @@ const countNeighbors = (x, y) => {
   return count
 }
 
+const startstop = () => {
+  if (intervalId) {
+    clearInterval(intervalId)
+    intervalId = null
+    document.getElementById('startstop').innerText = 'Start'
+    return
+  }
+
+  intervalId = setInterval(step, 100)
+  document.getElementById('startstop').innerText = 'Stop'
+}
+
 window.mouseClicked = () => {
   const x = Math.floor(mouseX / cellSize)
   const y = Math.floor(mouseY / cellSize)
@@ -98,3 +112,4 @@ window.mouseClicked = () => {
 }
 
 document.getElementById('step').onclick = step
+document.getElementById('startstop').onclick = startstop
