@@ -35,3 +35,31 @@ h1 {
   line-height: 1.1;
   text-align: center;
 }
+
+button {
+  background-color: #EA4C89;
+  border-radius: 8px;
+  border-style: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 16px;
+  margin-right: 6px;
+}
+
+button:hover,
+button:focus {
+  background-color: #F082AC;
+}
+
+select {
+  background-color: #333;
+  border-radius: 8px;
+  border-style: none;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 16px;
+  margin-right: 6px;
+}
