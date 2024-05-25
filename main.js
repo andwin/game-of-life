@@ -147,8 +147,22 @@ const exportBoardData = () => {
   alert(json)
 }
 
+const importBoardData = () => {
+  const json = prompt('Paste data to import')
+  if (!json) return
+
+  boardData.fill(false)
+
+  const data = JSON.parse(json)
+  for (const [x, y] of data) {
+    const index = y * boardWidht + x
+    boardData[index] = true
+  }
+}
+
 document.getElementById('step').onclick = step
 document.getElementById('startstop').onclick = startstop
 document.getElementById('presets').onchange = (e) => setPreset(e.target.value)
 document.getElementById('reset').onclick = () => setPreset(document.getElementById('presets').value)
 document.getElementById('export').onclick = exportBoardData
+document.getElementById('import').onclick = importBoardData
