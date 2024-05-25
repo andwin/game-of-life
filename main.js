@@ -134,7 +134,21 @@ window.mouseClicked = () => {
   boardData[index] = !boardData[index]
 }
 
+const exportBoardData = () => {
+  const data = boardData.map((alive, index) => {
+    if (!alive) return
+
+    const x = index % boardWidht
+    const y = Math.floor(index / boardWidht)
+    return [x, y]
+  }).filter((cell) => cell)
+
+  const json = JSON.stringify(data)
+  alert(json)
+}
+
 document.getElementById('step').onclick = step
 document.getElementById('startstop').onclick = startstop
 document.getElementById('presets').onchange = (e) => setPreset(e.target.value)
 document.getElementById('reset').onclick = () => setPreset(document.getElementById('presets').value)
+document.getElementById('export').onclick = exportBoardData
