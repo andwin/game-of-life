@@ -11,6 +11,18 @@ const boardData = new Array(boardWidht * boardHeight).fill(false)
 
 window.setup = () => {
   createCanvas(boardWidht * cellSize, boardHeight * cellSize)
+
+  const presetSelect = document.getElementById('presets')
+  for (const preset of presets) {
+    const option = document.createElement('option')
+    option.value = preset.name
+    option.text = preset.name
+    option.selected = preset.default
+    presetSelect.appendChild(option)
+  }
+
+  const defaultPreset = presets.find((preset) => preset.default)
+  setPreset(defaultPreset.name)
 }
 
 window.draw = () => {
@@ -101,11 +113,11 @@ const startstop = () => {
   document.getElementById('startstop').innerText = 'Stop'
 }
 
-const setPreset = (preset) => {
+const setPreset = (presetName) => {
   boardData.fill(false)
 
-  const presetData = presets[preset]
-  for (const [x, y] of presetData) {
+  const preset = presets.find((preset) => preset.name === presetName)
+  for (const [x, y] of preset.boardData) {
     const index = y * boardWidht + x
     boardData[index] = true
   }
@@ -125,5 +137,4 @@ window.mouseClicked = () => {
 document.getElementById('step').onclick = step
 document.getElementById('startstop').onclick = startstop
 document.getElementById('presets').onchange = (e) => setPreset(e.target.value)
-setPreset(document.getElementById('presets').value)
 document.getElementById('reset').onclick = () => setPreset(document.getElementById('presets').value)
