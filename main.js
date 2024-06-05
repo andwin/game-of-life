@@ -21,7 +21,7 @@ window.setup = () => {
     presetSelect.appendChild(option)
   }
 
-  const defaultPreset = presets.find((preset) => preset.default)
+  const defaultPreset = presets.find(preset => preset.default)
   setPreset(defaultPreset.name)
 }
 
@@ -116,7 +116,7 @@ const startstop = () => {
 const setPreset = (presetName) => {
   boardData.fill(false)
 
-  const preset = presets.find((preset) => preset.name === presetName)
+  const preset = presets.find(preset => preset.name === presetName)
   for (const [x, y] of preset.boardData) {
     const index = y * boardWidht + x
     boardData[index] = true
@@ -141,7 +141,7 @@ const exportBoardData = () => {
     const x = index % boardWidht
     const y = Math.floor(index / boardWidht)
     return [x, y]
-  }).filter((cell) => cell)
+  }).filter(cell => cell)
 
   const json = JSON.stringify(data)
   alert(json)
@@ -162,7 +162,7 @@ const importBoardData = () => {
 
 document.getElementById('step').onclick = step
 document.getElementById('startstop').onclick = startstop
-document.getElementById('presets').onchange = (e) => setPreset(e.target.value)
+document.getElementById('presets').onchange = e => setPreset(e.target.value)
 document.getElementById('reset').onclick = () => setPreset(document.getElementById('presets').value)
 document.getElementById('export').onclick = exportBoardData
 document.getElementById('import').onclick = importBoardData
