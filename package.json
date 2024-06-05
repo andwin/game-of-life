@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@andwin/eslint-config": "^0.0.16",
     "vite": "^5.2.0"
   },
   "dependencies": {
