@@ -116,7 +116,7 @@ const startstop = () => {
 const setPreset = (presetName) => {
   boardData.fill(false)
 
-  const preset = presets.find(preset => preset.name === presetName)
+  const preset = presets.find(p => p.name === presetName)
   for (const [x, y] of preset.boardData) {
     const index = y * boardWidht + x
     boardData[index] = true
