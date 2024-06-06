@@ -1,3 +1,20 @@
 {
-  "extends": "@andwin/eslint-config"
+  "extends": [
+    "@andwin/eslint-config",
+    "plugin:p5js/p5"
+  ],
+
+  "plugins": [
+    "p5js"
+  ],
+
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "p5js/p5": true
+  },
+
+  "rules": {
+    "no-unused-vars": ["error", { "varsIgnorePattern": "p5" }]
+  }
 }
