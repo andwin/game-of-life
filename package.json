@@ -7,10 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test" : "eslint ."
+    "test": "eslint ."
   },
   "devDependencies": {
     "@andwin/eslint-config": "^0.0.16",
+    "eslint-plugin-p5js": "^1.0.0",
     "vite": "^5.2.0"
   },
   "dependencies": {
