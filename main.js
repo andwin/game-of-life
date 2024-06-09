@@ -123,7 +123,7 @@ const setPreset = (presetName) => {
   }
 }
 
-window.mouseClicked = () => {
+const click = () => {
   const x = Math.floor(mouseX / cellSize)
   const y = Math.floor(mouseY / cellSize)
   if (x < 0 || x >= boardWidht || y < 0 || y >= boardHeight) {
@@ -166,3 +166,4 @@ document.getElementById('presets').onchange = e => setPreset(e.target.value)
 document.getElementById('reset').onclick = () => setPreset(document.getElementById('presets').value)
 document.getElementById('export').onclick = exportBoardData
 document.getElementById('import').onclick = importBoardData
+document.querySelector('main').onclick = click
