@@ -38,6 +38,10 @@ const presets = [
     name: 'Tripole',
     boardData: [[57, 32], [58, 32], [57, 33], [59, 33], [59, 35], [61, 35], [62, 36], [61, 37], [62, 37]],
   },
+  {
+    name: 'Gliders by the dozen',
+    boardData: [[57, 33], [58, 33], [61, 33], [57, 34], [61, 34], [57, 35], [60, 35], [61, 35]],
+  },
 ]
 
 export default presets
