@@ -7,6 +7,10 @@ const cellSize = 9
 
 let intervalId = null
 
+let draging = false
+let initialX = 0
+let initialY = 0
+
 const boardData = new Array(boardWidht * boardHeight).fill(false)
 
 window.setup = () => {
@@ -124,6 +128,8 @@ const setPreset = (presetName) => {
 }
 
 const click = () => {
+  if (draging) return
+
   const x = Math.floor(mouseX / cellSize)
   const y = Math.floor(mouseY / cellSize)
   if (x < 0 || x >= boardWidht || y < 0 || y >= boardHeight) {
@@ -132,6 +138,54 @@ const click = () => {
 
   const index = y * boardWidht + x
   boardData[index] = !boardData[index]
+}
+
+const dragStart = () => {
+  initialX = Math.floor(mouseX / cellSize)
+  initialY = Math.floor(mouseY / cellSize)
+}
+
+const drag = () => {
+  const currentX = Math.floor(mouseX / cellSize)
+  const currentY = Math.floor(mouseY / cellSize)
+
+  if (initialX === currentX || initialY === currentY) {
+    draging = true
+  }
+}
+
+const dragStop = () => {
+  if (!draging) {
+    click()
+    return
+  }
+
+  const currentX = Math.floor(mouseX / cellSize)
+  const currentY = Math.floor(mouseY / cellSize)
+  moveBoard(currentX - initialX, currentY - initialY)
+
+  draging = false
+}
+
+const moveBoard = (dx, dy) => {
+  const newBoardData = new Array(boardWidht * boardHeight).fill(false)
+
+  for (let y = 0; y < boardHeight; y++) {
+    for (let x = 0; x < boardWidht; x++) {
+      const index = y * boardWidht + x
+      const newIndex = (y + dy) * boardWidht + (x + dx)
+
+      if (newIndex < 0 || newIndex >= boardWidht * boardHeight) {
+        continue
+      }
+
+      newBoardData[newIndex] = boardData[index]
+    }
+  }
+
+  for (let i = 0; i < boardData.length; i++) {
+    boardData[i] = newBoardData[i]
+  }
 }
 
 const exportBoardData = () => {
@@ -166,4 +220,6 @@ document.getElementById('presets').onchange = e => setPreset(e.target.value)
 document.getElementById('reset').onclick = () => setPreset(document.getElementById('presets').value)
 document.getElementById('export').onclick = exportBoardData
 document.getElementById('import').onclick = importBoardData
-document.querySelector('main').onclick = click
+document.querySelector('main').onmousedown = dragStart
+document.querySelector('main').onmousemove = drag
+document.querySelector('main').onmouseup = dragStop
