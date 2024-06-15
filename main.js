@@ -8,8 +8,7 @@ const cellSize = 9
 let intervalId = null
 
 let draging = false
-let initialX = 0
-let initialY = 0
+let initialPosition
 
 const boardData = new Array(boardWidht * boardHeight).fill(false)
 
@@ -141,15 +140,12 @@ const click = () => {
 }
 
 const dragStart = () => {
-  initialX = Math.floor(mouseX / cellSize)
-  initialY = Math.floor(mouseY / cellSize)
+  initialPosition = getCurrentCell()
 }
 
 const drag = () => {
-  const currentX = Math.floor(mouseX / cellSize)
-  const currentY = Math.floor(mouseY / cellSize)
-
-  if (initialX === currentX || initialY === currentY) {
+  const current = getCurrentCell()
+  if (current.x === initialPosition.x || current.y === initialPosition.y) {
     draging = true
   }
 }
@@ -160,11 +156,16 @@ const dragStop = () => {
     return
   }
 
-  const currentX = Math.floor(mouseX / cellSize)
-  const currentY = Math.floor(mouseY / cellSize)
-  moveBoard(currentX - initialX, currentY - initialY)
+  const current = getCurrentCell()
+  moveBoard(current.x - initialPosition.x, current.y - initialPosition.y)
 
   draging = false
+}
+
+const getCurrentCell = () => {
+  const x = Math.floor(mouseX / cellSize)
+  const y = Math.floor(mouseY / cellSize)
+  return { x, y }
 }
 
 const moveBoard = (dx, dy) => {
