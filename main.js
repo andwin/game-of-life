@@ -188,6 +188,10 @@ const moveBoard = (dx, dy) => {
         continue
       }
 
+      // Skip if out of bounds - don't allow to wrap around
+      if (x + dx < 0 || x + dx >= boardWidht) continue
+      if (y + dy < 0 || y + dy >= boardHeight) continue
+
       newBoardData[newIndex] = boardData[index]
     }
   }
