@@ -147,6 +147,7 @@ const drag = () => {
   const current = getCurrentCell()
   if (current.x === initialPosition.x || current.y === initialPosition.y) {
     draging = true
+    document.body.style.cursor = 'move'
   }
 }
 
@@ -160,6 +161,7 @@ const dragStop = () => {
   moveBoard(current.x - initialPosition.x, current.y - initialPosition.y)
 
   draging = false
+  document.body.style.cursor = 'default'
 }
 
 const getCurrentCell = () => {
