@@ -7,11 +7,12 @@ const cellSize = 9
 
 let intervalId = null
 
+const boardData = new Array(boardWidht * boardHeight).fill(false)
+
 let draging = false
 let mouseDown = false
 let initialPosition
-
-const boardData = new Array(boardWidht * boardHeight).fill(false)
+const initialPositionBordData = new Array(boardWidht * boardHeight)
 
 window.setup = () => {
   createCanvas(boardWidht * cellSize, boardHeight * cellSize)
@@ -149,9 +150,17 @@ const drag = () => {
   if (!mouseDown) return
 
   const current = getCurrentCell()
-  if (current.x === initialPosition.x || current.y === initialPosition.y) {
+  if (!draging && (current.x === initialPosition.x || current.y === initialPosition.y)) {
     draging = true
+    for (let i = 0; i < boardData.length; i++) {
+      initialPositionBordData[i] = boardData[i]
+    }
     document.body.style.cursor = 'move'
+  }
+
+  const newBoardData = moveBoard(initialPositionBordData, current.x - initialPosition.x, current.y - initialPosition.y)
+  for (let i = 0; i < boardData.length; i++) {
+    boardData[i] = newBoardData[i]
   }
 }
 
@@ -163,9 +172,6 @@ const dragStop = () => {
     return
   }
 
-  const current = getCurrentCell()
-  moveBoard(current.x - initialPosition.x, current.y - initialPosition.y)
-
   draging = false
   document.body.style.cursor = 'default'
 }
@@ -176,7 +182,7 @@ const getCurrentCell = () => {
   return { x, y }
 }
 
-const moveBoard = (dx, dy) => {
+const moveBoard = (fromBoardData, dx, dy) => {
   const newBoardData = new Array(boardWidht * boardHeight).fill(false)
 
   for (let y = 0; y < boardHeight; y++) {
@@ -192,13 +198,11 @@ const moveBoard = (dx, dy) => {
       if (x + dx < 0 || x + dx >= boardWidht) continue
       if (y + dy < 0 || y + dy >= boardHeight) continue
 
-      newBoardData[newIndex] = boardData[index]
+      newBoardData[newIndex] = fromBoardData[index]
     }
   }
 
-  for (let i = 0; i < boardData.length; i++) {
-    boardData[i] = newBoardData[i]
-  }
+  return newBoardData
 }
 
 const exportBoardData = () => {
