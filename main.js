@@ -80,8 +80,12 @@ const step = () => {
     }
   }
 
-  for (let i = 0; i < boardData.length; i++) {
-    boardData[i] = newBoardData[i]
+  copyBoardData(newBoardData, boardData)
+}
+
+const copyBoardData = (fromBoardData, toBoardData) => {
+  for (let i = 0; i < fromBoardData.length; i++) {
+    toBoardData[i] = fromBoardData[i]
   }
 }
 
@@ -152,16 +156,12 @@ const drag = () => {
   const current = getCurrentCell()
   if (!draging && (current.x === initialPosition.x || current.y === initialPosition.y)) {
     draging = true
-    for (let i = 0; i < boardData.length; i++) {
-      initialPositionBordData[i] = boardData[i]
-    }
+    copyBoardData(boardData, initialPositionBordData)
     document.body.style.cursor = 'move'
   }
 
   const newBoardData = moveBoard(initialPositionBordData, current.x - initialPosition.x, current.y - initialPosition.y)
-  for (let i = 0; i < boardData.length; i++) {
-    boardData[i] = newBoardData[i]
-  }
+  copyBoardData(newBoardData, boardData)
 }
 
 const dragStop = () => {
