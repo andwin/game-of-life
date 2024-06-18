@@ -11,6 +11,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --primary-color: #EA4C89;
 }
 
 a {
@@ -50,7 +52,7 @@ h1 {
 }
 
 button {
-  background-color: #EA4C89;
+  background-color: var(--primary-color);
   border-radius: 8px;
   border-style: none;
   color: #FFFFFF;
@@ -83,7 +85,7 @@ select {
 }
 
 input[type="range"] {
-  accent-color: #EA4C89;
+  accent-color: var(--primary-color);
 }
 
 #buttons {
