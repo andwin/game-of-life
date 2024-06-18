@@ -5,6 +5,10 @@ const boardWidht = 120
 const boardHeight = 70
 const cellSize = 9
 
+const defaultSpeed = 50
+const maxUpdateInterval = 500
+const minUpdateInterval = 50
+let updateInterval
 let intervalId = null
 
 const boardData = new Array(boardWidht * boardHeight).fill(false)
@@ -16,6 +20,9 @@ const initialPositionBordData = new Array(boardWidht * boardHeight)
 
 window.setup = () => {
   createCanvas(boardWidht * cellSize, boardHeight * cellSize)
+
+  document.getElementById('speed').value = defaultSpeed
+  updateSpeed()
 
   const presetSelect = document.getElementById('presets')
   for (const preset of presets) {
@@ -118,7 +125,7 @@ const startstop = () => {
     return
   }
 
-  intervalId = setInterval(step, 100)
+  intervalId = setInterval(step, updateInterval)
   document.getElementById('startstop').innerText = 'Stop'
 }
 
@@ -231,6 +238,16 @@ const importBoardData = () => {
   }
 }
 
+const updateSpeed = () => {
+  const speed = document.getElementById('speed').value
+  updateInterval = map(speed, 0, 100, maxUpdateInterval, minUpdateInterval)
+
+  if (intervalId) {
+    clearInterval(intervalId)
+    intervalId = setInterval(step, updateInterval)
+  }
+}
+
 document.getElementById('step').onclick = step
 document.getElementById('startstop').onclick = startstop
 document.getElementById('presets').onchange = e => setPreset(e.target.value)
@@ -240,3 +257,4 @@ document.getElementById('import').onclick = importBoardData
 document.querySelector('main').onmousedown = dragStart
 document.querySelector('main').onmousemove = drag
 document.querySelector('main').onmouseup = dragStop
+document.getElementById('speed').onchange = updateSpeed
