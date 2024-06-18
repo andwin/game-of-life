@@ -8,19 +8,27 @@
     <title>Game of life</title>
   </head>
   <body>
+    <h1>Game of life</h1>
+
     <div class="wrapper">
-      <h1>Game of life</h1>
-      <main>
-      </main>
-      <div id="buttons">
-        <button id="startstop">Start</button>
-        <button id="step">Step</button>
-        <select id="presets"></select>
-        <button id="reset">Reset</button>
-        <button id="export">Export</button>
-        <button id="import">Import</button>
+      <main></main>
+
+      <div class="inner-wrapper">
+        <div id="buttons">
+          <button id="startstop">Start</button>
+          <button id="step">Step</button>
+          <select id="presets"></select>
+          <button id="reset">Reset</button>
+          <button id="export">Export</button>
+          <button id="import">Import</button>
+        </div>
+        <div id="info">
+          <p>Click to toggle cell</p>
+          <p>Drag to move board</p>
+        </div>
       </div>
     </div>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>
