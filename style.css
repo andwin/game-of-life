@@ -77,12 +77,23 @@ select {
   margin-right: 6px;
 }
 
+#speed-icon {
+  margin: 0 8px 0 16px;
+  width: 28px;
+}
+
 input[type="range"] {
   accent-color: #EA4C89;
 }
 
 #buttons {
   flex: auto;
+}
+
+#inner-buttons {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
 }
 
 #info p {
