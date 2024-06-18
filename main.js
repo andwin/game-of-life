@@ -9,7 +9,7 @@ const defaultSpeed = 50
 const maxUpdateInterval = 500
 const minUpdateInterval = 50
 let updateInterval
-let intervalId = null
+let timeoutId = null
 
 const boardData = new Array(boardWidht * boardHeight).fill(false)
 
@@ -118,15 +118,20 @@ const countNeighbors = (x, y) => {
 }
 
 const startstop = () => {
-  if (intervalId) {
-    clearInterval(intervalId)
-    intervalId = null
+  if (timeoutId) {
+    clearTimeout(timeoutId)
+    timeoutId = null
     document.getElementById('startstop').innerText = 'Start'
     return
   }
 
-  intervalId = setInterval(step, updateInterval)
+  timeoutId = setTimeout(timeoutFunction, updateInterval)
   document.getElementById('startstop').innerText = 'Stop'
+}
+
+const timeoutFunction = () => {
+  step()
+  timeoutId = setTimeout(timeoutFunction, updateInterval)
 }
 
 const setPreset = (presetName) => {
@@ -241,11 +246,6 @@ const importBoardData = () => {
 const updateSpeed = () => {
   const speed = document.getElementById('speed').value
   updateInterval = map(speed, 0, 100, maxUpdateInterval, minUpdateInterval)
-
-  if (intervalId) {
-    clearInterval(intervalId)
-    intervalId = setInterval(step, updateInterval)
-  }
 }
 
 document.getElementById('step').onclick = step
@@ -257,4 +257,4 @@ document.getElementById('import').onclick = importBoardData
 document.querySelector('main').onmousedown = dragStart
 document.querySelector('main').onmousemove = drag
 document.querySelector('main').onmouseup = dragStop
-document.getElementById('speed').onchange = updateSpeed
+document.getElementById('speed').oninput = updateSpeed
